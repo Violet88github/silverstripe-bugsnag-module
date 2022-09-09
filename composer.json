@@ -1,10 +1,12 @@
 {
-    "name": "silverstripe-module/skeleton",
-    "description": "A skeleton for SilverStripe modules.",
+    "name": "violet88/bugsnag-silverstripe",
+    "description": "A module to use Bugsnag in SilverStripe projects.",
     "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",
-        "CMS"
+        "CMS",
+        "BugSnag",
+        "violet88"
     ],
     "license": "BSD-3-Clause",
     "require": {
@@ -30,5 +32,11 @@
         ]
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "silverstripe/vendor-plugin": true
+        }
+    }
 }
