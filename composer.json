@@ -11,7 +11,10 @@
     "license": "BSD-3-Clause",
     "require": {
         "silverstripe/framework": "^4.0",
-        "silverstripe/admin": "^1.0"
+        "silverstripe/admin": "^1.0",
+        "bugsnag/bugsnag": "^3.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "bugsnag/bugsnag-psr-logger": "^1.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
@@ -19,8 +22,8 @@
     },
     "autoload": {
         "psr-4": {
-            "SilverStripeModule\\Skeleton\\": "src/",
-            "SilverStripeModule\\Skeleton\\Tests\\": "tests/"
+            "Violet88\\BugsnagModule\\": "src/",
+            "Violet88\\BugsnagModule\\Tests\\": "tests/"
         }
     },
     "extra": {

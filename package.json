@@ -1,6 +1,6 @@
 {
-  "name": "silverstripe-module-skeleton",
-  "description": "Description of your module",
+  "name": "violet88-bugsnag-module",
+  "description": "A module to use Bugsnag in SilverStripe projects.",
   "main": "./client/src/boot/index.js",
   "author": "You",
   "engines": {
