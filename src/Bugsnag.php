@@ -118,6 +118,11 @@ class Bugsnag
         $this->bugsnag->notifyError('Error', $error);
     }
 
+    public function addEndpoint($endpoint)
+    {
+        $this->bugsnag->setNotifyEndpoint($endpoint);
+    }
+
     public function notifyBuild($repository, $revision, $provider, $builderName)
     {
         $this->bugsnag->build($repository, $revision, $provider, $builderName);
