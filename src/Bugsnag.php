@@ -86,7 +86,8 @@ class Bugsnag
                     'Email' => $member->Email,
                     'FirstName' => $member->FirstName,
                     'Surname' => $member->Surname,
-                    'ID' => $member->ID
+                    'ID' => $member->ID,
+                    'Groups' => $member->Groups()->column('Title'),
                 ));
             }
         } else {
@@ -95,19 +96,19 @@ class Bugsnag
         return $this;
     }
 
-    public function addAppVersion($version)
+    public function setAppVersion($version)
     {
         $this->bugsnag->setAppVersion($version);
         return $this;
     }
 
-    public function addAppType($type)
+    public function setAppType($type)
     {
         $this->bugsnag->setAppType($type);
         return $this;
     }
 
-    public function addReleaseStage($stage)
+    public function setReleaseStage($stage)
     {
         $this->bugsnag->setReleaseStage($stage);
         return $this;
@@ -118,7 +119,7 @@ class Bugsnag
         $this->bugsnag->notifyError('Error', $error);
     }
 
-    public function addEndpoint($endpoint)
+    public function setEndpoint($endpoint)
     {
         $this->bugsnag->setNotifyEndpoint($endpoint);
     }
