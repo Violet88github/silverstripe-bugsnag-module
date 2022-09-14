@@ -4,6 +4,7 @@ namespace Violet88\BugsnagModule;
 
 use Bugsnag\Client;
 use Bugsnag\Report;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Security\Security;
 
@@ -32,7 +33,7 @@ class Bugsnag
 
     public function __construct()
     {
-        $this->bugsnag = Client::make($this->config()->get('API_KEY'));
+        $this->bugsnag = Client::make(Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'API_KEY'));
     }
 
     public function reset()
@@ -40,12 +41,12 @@ class Bugsnag
         $this->extraOptions = [];
     }
 
-    private function getStandardSeverity()
+    public function getStandardSeverity()
     {
-        return $this->config()->get('STANDARD_SEVERITY');
+        return Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'STANDARD_SEVERITY');
     }
 
-    private function getExtraOptions()
+    public function getExtraOptions()
     {
         return $this->extraOptions;
     }
@@ -62,20 +63,33 @@ class Bugsnag
         return $this;
     }
 
+    /**
+    * @return Client
+    */
+    public function getBugsnag(): Client
+    {
+        return $this->bugsnag;
+    }
+
     public function sendException(\Exception $exception, string $severity = null, $resetExtraOptions = true)
     {
-        if ($this->config()->get('active')) {
+        if (Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'active')) {
             if (empty($severity)) {
                 $severity = $this->getStandardSeverity();
             }
-            $this->bugsnag->notifyException($exception, function (Report $report) use ($severity) {
-                $report->setSeverity($severity);
-                $report->setMetaData($this->getExtraOptions());
+            $this->getBugsnag()->notifyException($exception, function (Report $report) use ($severity) {
+                $this->notifyCallback($report, $severity);
             });
             if ($resetExtraOptions) {
                 $this->reset();
             }
         }
+    }
+
+    protected function notifyCallback(Report $report, $severity)
+    {
+        $report->setSeverity($severity);
+        $report->setMetaData($this->getExtraOptions());
     }
 
     public function addUserInfo($bool)
@@ -122,10 +136,12 @@ class Bugsnag
     public function setEndpoint($endpoint)
     {
         $this->bugsnag->setNotifyEndpoint($endpoint);
+        return $this;
     }
 
     public function notifyBuild($repository, $revision, $provider, $builderName)
     {
         $this->bugsnag->build($repository, $revision, $provider, $builderName);
+        return $this;
     }
 }

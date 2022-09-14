@@ -19,14 +19,21 @@ class BugsnagLogger extends AbstractProcessingHandler
     protected function write(array $record)
     {
         if (isset($record['context'])) {
-            if (empty($record['exception'])) {
-                $this->bugsnag->sendError($record['message']);
+            if (!isset($record['context']['exception'])) {
+                $this->getBugsnag()->sendError($record['message']);
                 return;
             }
-            $this->bugsnag->sendException($record['context']['exception'], $this->levelToSeverity($record['level']));
+            $this->getBugsnag()->sendException(
+                $record['context']['exception'],
+                $this->levelToSeverity($record['level'])
+            );
         }
     }
 
+    public function getBugsnag(): Bugsnag
+    {
+        return $this->bugsnag;
+    }
 
     /**
      * Convert Monolog Level to Bugsnag Severity.

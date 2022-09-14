@@ -26,7 +26,7 @@ class BugsnagController extends Controller
 
         $bugsnag = Injector::inst()->get(Bugsnag::class);
         $bugsnag
-            ->addAppVersion($appVersion)
+            ->setAppVersion($appVersion)
             ->notifyBuild($repository, $revision, $provider, $builderName);
 
         $response = new HTTPResponse();
