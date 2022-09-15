@@ -25,10 +25,15 @@ class BugsnagLogger extends AbstractProcessingHandler
             }
             //check if $record['context']['exception'] is an instance of \Exception
             if ($record['context']['exception'] instanceof \Exception) {
-                $this->getBugsnag()->sendException(
-                    $record['context']['exception'],
-                    $this->levelToSeverity($record['level'])
-                );
+                $this->getBugsnag()
+                    ->addUserInfo()
+                    ->addPackagesWithVersions()
+                    ->sendException(
+                        $record['context']['exception'],
+                        $this->levelToSeverity($record['level']),
+                        true,
+                        false
+                    );
                 return;
             }
             $this->getBugsnag()->sendError($record['message']);

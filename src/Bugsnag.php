@@ -72,15 +72,31 @@ class Bugsnag
         return $this->bugsnag;
     }
 
-    public function sendException(\Exception $exception, string $severity = null, $resetExtraOptions = true)
-    {
+    public function sendException(
+        \Exception $exception,
+        string $severity = null,
+        $resetExtraOptions = true,
+        $handled = true
+    ) {
         if (Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'active')) {
             if (empty($severity)) {
                 $severity = $this->getStandardSeverity();
             }
-            $this->getBugsnag()->notifyException($exception, function (Report $report) use ($severity) {
-                $this->notifyCallback($report, $severity);
-            });
+            if ($handled) {
+                $this->getBugsnag()->notifyException($exception, function (Report $report) use ($severity, $handled) {
+                     $this->notifyCallback($report, $severity);
+                });
+            } else {
+                $this->getBugsnag()->notify(
+                    Report::fromPHPThrowable(
+                        $this->getBugsnag()->getConfig(),
+                        $exception
+                    )->setUnhandled(true),
+                    function (Report $report) use ($severity) {
+                        $this->notifyCallback($report, $severity);
+                    }
+                );
+            }
             if ($resetExtraOptions) {
                 $this->reset();
             }
@@ -93,7 +109,7 @@ class Bugsnag
         $report->setMetaData($this->getExtraOptions());
     }
 
-    public function addUserInfo($bool)
+    public function addUserInfo($bool = true)
     {
         if ($bool) {
             if ($member = Security::getCurrentUser()) {
