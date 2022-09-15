@@ -140,13 +140,39 @@ class Bugsnag
         return $this;
     }
 
-    public function addVersion(bool $bool)
+    public function addVersion(bool $bool = true)
     {
         if ($bool) {
             $version = InstalledVersions::getRootPackage()['pretty_version'];
             $this->setAppVersion($version);
         } else {
             $this->removeExtraOption('Version');
+        }
+        return $this;
+    }
+
+    public function addPackages(bool $bool = true)
+    {
+        if ($bool) {
+            $packages = InstalledVersions::getInstalledPackages();
+            $this->addExtraOption('Packages', $packages);
+        } else {
+            $this->removeExtraOption('Packages');
+        }
+        return $this;
+    }
+
+    public function addPackagesWithVersions(bool $bool = true)
+    {
+        if ($bool) {
+            $packages = InstalledVersions::getInstalledPackages();
+            $packagesWithVersions = [];
+            foreach ($packages as $package) {
+                $packagesWithVersions[$package] = InstalledVersions::getPrettyVersion($package);
+            }
+            $this->addExtraOption('Packages', $packagesWithVersions);
+        } else {
+            $this->removeExtraOption('Packages');
         }
         return $this;
     }
