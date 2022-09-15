@@ -35,6 +35,7 @@ class Bugsnag
     public function __construct()
     {
         $this->bugsnag = Client::make(Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'API_KEY'));
+        $this->bugsnag->setAppType('Silverstripe');
     }
 
     public function reset()
