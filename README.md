@@ -41,6 +41,12 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       - '%$Violet88\BugsnagModule\Bugsnag'
 ```
+For using the CLI command to sent your current release revision to Bugsnag, add the following to your routes yaml
+```yaml
+SilverStripe\Control\Director:
+  rules:
+    'bugsnag_build': 'Violet88\BugsnagModule\BugsnagController'
+```
 ## Maintainers
  * Sven van der Zwet <sven.vd.zwet@gmail.com>
 

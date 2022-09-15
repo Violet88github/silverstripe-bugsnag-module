@@ -26,14 +26,14 @@ class BugsnagLoggerTest extends SapphireTest
         $bugsnagMock = $this->getMockBuilder('Violet88\BugsnagModule\Bugsnag')
             ->setMethods(['sendException', 'sendError'])
             ->getMock();
-        $bugsnagMock->expects($this->once())
+        $bugsnagMock->expects($this->exactly(2))
             ->method('sendError');
         $obj = $this->getMockBuilder('Violet88\BugsnagModule\BugsnagLogger')
             ->setConstructorArgs([$bugsnagMock])
             ->setMethods(['getBugsnag'])
             ->getMock();
 
-        $obj->expects($this->once())
+        $obj->expects($this->exactly(2))
             ->method('getBugsnag')
             ->willReturn($bugsnagMock);
         $args = [
@@ -43,7 +43,17 @@ class BugsnagLoggerTest extends SapphireTest
             ],
             'level' => 300
         ];
+
+        $args2 = [
+            'message' => 'test',
+            'context' => [
+                'exception' => 'test'
+            ],
+            'level' => 300
+        ];
+
         $write->invokeArgs($obj, [$args]);
+        $write->invokeArgs($obj, [$args2]);
     }
 
     public function testWriteSendsException()

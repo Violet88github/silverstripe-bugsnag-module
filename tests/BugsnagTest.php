@@ -3,6 +3,7 @@
 namespace Violet88\BugsnagModule\Tests;
 
 use Bugsnag\Client;
+use Composer\InstalledVersions;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
@@ -192,6 +193,31 @@ class BugsnagTest extends SapphireTest
         $bugsnag->sendException(new \Exception('test'));
     }
 
+    public function testSendExceptionCallsNotifyWhenNotHandled()
+    {
+        $bugsnagConfigMock = $this->getMockBuilder('Bugsnag\Configuration')
+            ->setConstructorArgs(['API_KEY'])
+            ->getMock();
+
+        $clientMock = $this->getMockBuilder('Bugsnag\Client')
+            ->setConstructorArgs([$bugsnagConfigMock])
+            ->setMethods(['notify'])
+            ->getMock();
+
+        $bugsnag = $this->getMockBuilder('Violet88\BugsnagModule\Bugsnag')
+            ->setMethods(['getStandardSeverity', 'getBugsnag'])
+            ->getMock();
+
+        $bugsnag->method('getBugsnag')
+            ->willReturn($clientMock);
+
+        $clientMock->expects($this->once())
+            ->method('notify')
+            ->willReturn(true);
+
+        $bugsnag->sendException(new \Exception('test'), 'info', true, false);
+    }
+
     public function testSetAppType()
     {
         $bugsnagConfigMock = $this->getMockBuilder('Bugsnag\Configuration')
@@ -341,5 +367,78 @@ class BugsnagTest extends SapphireTest
             ->willReturn(true);
 
         $bugsnag->notifyBuild('test@github', 'test', '1.0.0', 'test');
+    }
+
+    public function testAddVersion()
+    {
+        $bugsnagConfigMock = $this->getMockBuilder('Bugsnag\Configuration')
+            ->setConstructorArgs(['API_KEY'])
+            ->getMock();
+
+        $clientMock = $this->getMockBuilder('Bugsnag\Client')
+            ->setConstructorArgs([$bugsnagConfigMock])
+            ->setMethods(['setAppVersion'])
+            ->getMock();
+
+        $bugsnag = new Bugsnag();
+        $bugsnag->bugsnag = $clientMock;
+
+        $clientMock->expects($this->once())
+            ->method('setAppVersion')
+            ->with(InstalledVersions::getRootPackage()['pretty_version']);
+
+        $bugsnag->addVersion();
+
+        $bugsnag->addVersion(false);
+
+        $this->assertEquals([], $bugsnag->getExtraOptions());
+    }
+
+    public function testAddPackages()
+    {
+        $bugsnagConfigMock = $this->getMockBuilder('Bugsnag\Configuration')
+            ->setConstructorArgs(['API_KEY'])
+            ->getMock();
+
+        $clientMock = $this->getMockBuilder('Bugsnag\Client')
+            ->setConstructorArgs([$bugsnagConfigMock])
+            ->setMethods(['setAppVersion'])
+            ->getMock();
+
+        $bugsnag = new Bugsnag();
+        $bugsnag->bugsnag = $clientMock;
+
+        self::assertEquals([], $bugsnag->getExtraOptions());
+
+        $bugsnag->addPackages();
+
+        self::assertEquals(InstalledVersions::getInstalledPackages(), $bugsnag->getExtraOptions()['Packages']);
+
+        $bugsnag->addPackages(false);
+
+        self::assertEquals([], $bugsnag->getExtraOptions());
+    }
+
+    public function testAddPackagesWithVersions()
+    {
+        $bugsnagConfigMock = $this->getMockBuilder('Bugsnag\Configuration')
+            ->setConstructorArgs(['API_KEY'])
+            ->getMock();
+
+        $clientMock = $this->getMockBuilder('Bugsnag\Client')
+            ->setConstructorArgs([$bugsnagConfigMock])
+            ->setMethods(['setAppVersion'])
+            ->getMock();
+
+        $bugsnag = new Bugsnag();
+        $bugsnag->bugsnag = $clientMock;
+
+        self::assertEquals([], $bugsnag->getExtraOptions());
+
+        $bugsnag->addPackagesWithVersions();
+
+        $bugsnag->addPackagesWithVersions(false);
+
+        self::assertEquals([], $bugsnag->getExtraOptions());
     }
 }

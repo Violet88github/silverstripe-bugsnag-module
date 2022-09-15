@@ -119,7 +119,7 @@ class Bugsnag
                     'FirstName' => $member->FirstName,
                     'Surname' => $member->Surname,
                     'ID' => $member->ID,
-                    'Groups' => $member->Groups()->column('Title'),
+                    'Groups' => $member->Groups()?->column('Title'),
                 ));
             }
         } else {
