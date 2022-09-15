@@ -4,6 +4,7 @@ namespace Violet88\BugsnagModule;
 
 use Bugsnag\Client;
 use Bugsnag\Report;
+use Composer\InstalledVersions;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Security\Security;
@@ -136,6 +137,17 @@ class Bugsnag
     public function setEndpoint($endpoint)
     {
         $this->bugsnag->setNotifyEndpoint($endpoint);
+        return $this;
+    }
+
+    public function addVersion(bool $bool)
+    {
+        if ($bool) {
+            $version = InstalledVersions::getRootPackage()['pretty_version'];
+            $this->setAppVersion($version);
+        } else {
+            $this->removeExtraOption('Version');
+        }
         return $this;
     }
 
