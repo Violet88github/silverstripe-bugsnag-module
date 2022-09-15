@@ -23,10 +23,15 @@ class BugsnagLogger extends AbstractProcessingHandler
                 $this->getBugsnag()->sendError($record['message']);
                 return;
             }
-            $this->getBugsnag()->sendException(
-                $record['context']['exception'],
-                $this->levelToSeverity($record['level'])
-            );
+            //check if $record['context']['exception'] is an instance of \Exception
+            if ($record['context']['exception'] instanceof \Exception) {
+                $this->getBugsnag()->sendException(
+                    $record['context']['exception'],
+                    $this->levelToSeverity($record['level'])
+                );
+                return;
+            }
+            $this->getBugsnag()->sendError($record['message']);
         }
     }
 

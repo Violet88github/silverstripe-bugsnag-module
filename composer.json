@@ -13,8 +13,7 @@
         "silverstripe/framework": "^4.0",
         "silverstripe/admin": "^1.0",
         "bugsnag/bugsnag": "^3.0",
-        "guzzlehttp/guzzle": "^7.0",
-        "bugsnag/bugsnag-psr-logger": "^1.4"
+        "guzzlehttp/guzzle": "^7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
