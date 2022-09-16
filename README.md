@@ -2,14 +2,14 @@
 ## Requirements
 
 * SilverStripe ^4.0
-* silverstripe/framework
-* bugsnag/bugsnag
-* guzzlehttp/guzzle
-* silverstripe/admin
+* [silverstripe/framework](https://packagist.org/packages/silverstripe/framework)
+* [bugsnag/bugsnag](https://packagist.org/packages/bugsnag/bugsnag)
+* [guzzlehttp/guzzle](https://packagist.org/packages/guzzlehttp/guzzle)
+* [silverstripe/admin](https://packagist.org/packages/silverstripe/admin)
 
 ## Dev requirements
-* phpunit/phpunit
-* squizlabs/php_codesniffer
+* [phpunit/phpunit](https://packagist.org/packages/phpunit/phpunit)
+* [squizlabs/php_codesniffer](https://packagist.org/packages/squizlabs/php_codesniffer)
 
 ## Installation
 
@@ -47,6 +47,22 @@ SilverStripe\Control\Director:
   rules:
     'bugsnag_build': 'Violet88\BugsnagModule\BugsnagController'
 ```
+
+## Basic usage
+For sending a basic error to Bugsnag, use the following code
+```php
+use Violet88\BugsnagModule\Bugsnag;
+use Exception;
+use SilverStripe\Core\Injector\Injector;
+
+try{
+    //do something
+} catch (Exception $e) {
+    $bugsnag = Injector::inst()->get(Bugsnag::class);
+    $bugsnag->sendException($e);
+}
+```
+
 ## Maintainers
  * Sven van der Zwet <sven.vd.zwet@gmail.com>
 
