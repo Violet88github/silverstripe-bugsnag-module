@@ -18,7 +18,7 @@ class BugsnagTest extends SapphireTest
     public function testGetExtraOption()
     {
         $stub = $this->getMockBuilder(Bugsnag::class)
-            ->setMethods([ 'getExtraOptions'])
+            ->setMethods(['getExtraOptions'])
             ->getMock();
 
         $extraOptions = [
@@ -106,13 +106,15 @@ class BugsnagTest extends SapphireTest
 
         $bugsnag->addUserInfo(true);
 
-        $this->assertEquals(['User' => [
-            'ID' => 1,
-            'Email' => 'test@test.nl',
-            'FirstName' => 'Test',
-            'Surname' => 'Test',
-            'Groups' => ['group1', 'group2']
-        ]], $bugsnag->getExtraOptions());
+        $this->assertEquals([
+            'User' => [
+                'ID' => 1,
+                'Email' => 'test@test.nl',
+                'FirstName' => 'Test',
+                'Surname' => 'Test',
+                'Groups' => ['group1', 'group2']
+            ]
+        ], $bugsnag->getExtraOptions());
 
         $bugsnag->addUserInfo(false);
         $this->assertEquals([], $bugsnag->getExtraOptions());

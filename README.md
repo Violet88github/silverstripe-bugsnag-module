@@ -28,7 +28,7 @@ For base use add the following to your configuration yaml
 Violet88\BugsnagModule\Bugsnag:
   API_KEY: "<YOUR BUGSNAG API KEY>"
   STANDARD_SEVERITY: "<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>"
-  active: <TRUE OR FALSE, depending on whether bugsnag should be active>
+  ACTIVE: <true OR false, depending on whether bugsnag should be ACTIVE>
 ```
 For using the BugsnagLogger as the standard error logger, add the following to your configuration yaml
 ```yaml
@@ -64,7 +64,7 @@ try{
 ```
 
 ## Maintainers
- * Sven van der Zwet <sven.vd.zwet@gmail.com>
+ * Sven van der Zwet
 
 ## Bugtracker
 Bugs are tracked in the issues section of this repository. Before submitting an issue please read over

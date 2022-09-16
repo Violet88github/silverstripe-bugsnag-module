@@ -11,7 +11,7 @@
 Violet88\BugsnagModule\Bugsnag:
   API_KEY: "<YOUR BUGSNAG API KEY>"
   STANDARD_SEVERITY: "<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>"
-  active: <TRUE OR FALSE, depending on whether bugsnag should be active>
+  ACTIVE: <true OR false, depending on whether bugsnag should be ACTIVE>
 ```
 7. Test if the module is working by sending an exception to bugsnag using the following code
 ```php

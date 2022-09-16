@@ -15,7 +15,7 @@ class Bugsnag
 
     public Client $bugsnag;
 
-    protected $extraOptions = array();
+    protected $EXTRA_OPTIONS = array();
 
     /**
      * @config
@@ -30,7 +30,7 @@ class Bugsnag
     /**
      * @config
      */
-    private static $active;
+    private static $ACTIVE;
 
     public function __construct()
     {
@@ -40,7 +40,7 @@ class Bugsnag
 
     public function reset()
     {
-        $this->extraOptions = [];
+        $this->EXTRA_OPTIONS = [];
     }
 
     public function getStandardSeverity()
@@ -50,24 +50,24 @@ class Bugsnag
 
     public function getExtraOptions()
     {
-        return $this->extraOptions;
+        return $this->EXTRA_OPTIONS;
     }
 
     public function addExtraOption($key, $value)
     {
-        $this->extraOptions[$key] = $value;
+        $this->EXTRA_OPTIONS[$key] = $value;
         return $this;
     }
 
     public function removeExtraOption($key)
     {
-        unset($this->extraOptions[$key]);
+        unset($this->EXTRA_OPTIONS[$key]);
         return $this;
     }
 
     /**
-    * @return Client
-    */
+     * @return Client
+     */
     public function getBugsnag(): Client
     {
         return $this->bugsnag;
@@ -79,14 +79,17 @@ class Bugsnag
         $resetExtraOptions = true,
         $handled = true
     ) {
-        if (Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'active')) {
+        if (Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'ACTIVE')) {
             if (empty($severity)) {
                 $severity = $this->getStandardSeverity();
             }
             if ($handled) {
-                $this->getBugsnag()->notifyException($exception, function (Report $report) use ($severity, $handled) {
-                     $this->notifyCallback($report, $severity);
-                });
+                $this->getBugsnag()->notifyException(
+                    $exception,
+                    function (Report $report) use ($severity, $handled) {
+                        $this->notifyCallback($report, $severity);
+                    }
+                );
             } else {
                 $this->getBugsnag()->notify(
                     Report::fromPHPThrowable(
