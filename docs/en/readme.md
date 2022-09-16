@@ -2,10 +2,11 @@
 ## Setting up a bugsnag project
 1. Go to your bugsnag dashboard and press 'NEW PROJECT'
 2. For the question 'Where does your application run?' Choose 'Server'
-3. For the question 'What platform or programming language are you using?' Choose 'PHP'
-4. For the question 'What framework are you using?' Choose 'Other'
-5. Name the project and press 'continue'
-6. Make sure you add the following to your site config
+3. For the question 'What platform or programming language are you
+4. using?' Choose 'PHP'
+5. For the question 'What framework are you using?' Choose 'Other'
+6. Name the project and press 'continue'
+7. Make sure you add the following to your site config
 ```yaml
 Violet88\BugsnagModule\Bugsnag:
   API_KEY: "<YOUR BUGSNAG API KEY>"
@@ -52,17 +53,17 @@ SilverStripe\Control\Director:
 ```
 2. After that run one of the following commands
 #### Using Sake
-run the following command in your project root
+run the following command in your project root, replacing these arguments with your own.
 ```bash
 vendor/bin/sake bugsnag_build "repository=https://github.com/Violet88github/bugsnag-module&revision=1.0.0&provider=github&builderName=Sven&appVersion=1.0.0"
 ```
 #### Using the Silverstripe cli script
-run the following command in your project root
+run the following command in your project root, replacing these arguments with your own.
 ```bash
 php vendor/silverstripe/framework/cli-script.php bugsnag_build repository=https://github.com/Violet88github/bugsnag-module revision=1.0.0 provider=github builderName=sven appVersion=1.0.0
 ```
 
-## Using the BugsnagLogger as the standard error logger
+## Catching unhandled exceptions
 1. Add the following to your configuration yaml
 ```yaml
 SilverStripe\Core\Injector\Injector:
@@ -79,36 +80,36 @@ SilverStripe\Core\Injector\Injector:
 ## Setting up a Bugsnag error message
 Using switches or custom metadata, you can configure the Bugsnag error message. The following standard switches are available and are chainable.
 ### User
-If a user is logged into the cms, you can use the addUserInfo() switch to add their user info to the Bugsnag message. In the code this would like as follows:
+If a user is logged in, you can use the addUserInfo() switch to add their user info to the Bugsnag message. In the code this would work as follows:
 ```php
 $bugsnag = Injector::inst()->get(Bugsnag::class);
 $bugsnag
-    ->addUserInfo()
+    ->addUserInfo() //Add false as an argument to remove user info
     ->sendException(new RuntimeException('Test exception'));
 ```
 ### Version
-If you have set a project version in your composer.json, you can use the addVersion() switch to add or remove the version in the Bugsnag message. In the code this would like as follows:
+If you have set a project version in your composer.json, you can use the addVersion() switch to add or remove the version in the Bugsnag message. In the code this would work as follows:
 ```php
 $bugsnag = Injector::inst()->get(Bugsnag::class);
 $bugsnag
-    ->addVersion(true) // make false to remove the version
+    ->addVersion() //Add false as an argument toremove the version
     ->sendException(new RuntimeException('Test exception'));
 ```
 ### Installed packages (without versions)
-To add a simple list of packages that are installed in the project, you can use the addInstalledPackages() switch. This list does not include versions, if you wish to include those continue to the next switch. In the code this would like as follows:
+To add a simple list of packages that are installed in the project, you can use the addInstalledPackages() switch. This list does not include versions, if you wish to include those continue to the next switch. In the code this would work as follows:
 ```php
 $bugsnag = Injector::inst()->get(Bugsnag::class);
 $bugsnag
-    ->addPackages()
+    ->addPackages() //Add false as an argument to remove the list of packages
     ->sendException(new RuntimeException('Test exception'));
 ```
 This will automatically retrieve the version as set in your composer.json
 ### Installed packages (with versions)
-To add a list of packages that are installed in the project, including their versions, you can use the addPackagesWithVersions() switch. In the code this would like as follows:
+To add a list of packages that are installed in the project, including their versions, you can use the addPackagesWithVersions() switch. In the code this would work as follows:
 ```php
 $bugsnag = Injector::inst()->get(Bugsnag::class);
 $bugsnag
-    ->addPackagesWithVersions()
+    ->addPackagesWithVersions() //Add false as an argument to remove the list of packages
     ->sendException(new RuntimeException('Test exception'));
 ```
 ## Custom metadata
