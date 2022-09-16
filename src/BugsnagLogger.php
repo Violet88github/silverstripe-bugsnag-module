@@ -16,6 +16,12 @@ class BugsnagLogger extends AbstractProcessingHandler
     }
 
 
+    /**
+     * Function that gets called when a log is getting written. This function will send the log to Bugsnag.
+     *
+     * @param array $record
+     * @return void
+     */
     protected function write(array $record)
     {
         if (isset($record['context'])) {

@@ -5,6 +5,7 @@ namespace Violet88\BugsnagModule;
 use Bugsnag\Client;
 use Bugsnag\Report;
 use Composer\InstalledVersions;
+use Exception;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Security\Security;
@@ -39,8 +40,9 @@ class Bugsnag
     }
 
     /**
-     * @return void
      * Reset the custom metadata
+     *
+     * @return void
      */
     public function reset()
     {
@@ -48,8 +50,9 @@ class Bugsnag
     }
 
     /**
-     * @return mixed
      * Get the standard severity set in the config.
+     *
+     * @return mixed
      */
     public function getStandardSeverity()
     {
@@ -57,8 +60,9 @@ class Bugsnag
     }
 
     /**
-     * @return array
      * Get the current custom metadata
+     *
+     * @return array
      */
     public function getExtraOptions()
     {
@@ -66,10 +70,11 @@ class Bugsnag
     }
 
     /**
+     * Add a key value pair to the metadata
+     *
      * @param $key
      * @param $value
      * @return $this
-     * Add a key value pair to the metadata
      */
     public function addExtraOption($key, $value)
     {
@@ -78,9 +83,10 @@ class Bugsnag
     }
 
     /**
+     * Remove a key value pair from the metadata
+     *
      * @param $key
      * @return $this
-     * Remove a key value pair from the metadata
      */
     public function removeExtraOption($key)
     {
@@ -89,6 +95,8 @@ class Bugsnag
     }
 
     /**
+     * Get the Bugsnag client
+     *
      * @return Client
      */
     public function getBugsnag(): Client
@@ -97,16 +105,17 @@ class Bugsnag
     }
 
     /**
-     * @param \Exception $exception
+     * This method send the exception to Bugsnag. Perform any configuration to your error report BEFORE you call this
+     * method.
+     *
+     * @param Exception $exception
      * @param string|null $severity
      * @param bool $resetExtraOptions
      * @param bool $handled
      * @return void
-     * This method send the exception to Bugsnag. Perform any configuration to your error report BEFORE you call this
-     * method.
      */
     public function sendException(
-        \Exception $exception,
+        Exception $exception,
         string $severity = null,
         bool $resetExtraOptions = true,
         bool $handled = true
@@ -140,10 +149,11 @@ class Bugsnag
     }
 
     /**
+     * This method is for internal use only. It is called by sendException() to configure the error report
+     *
      * @param Report $report
      * @param $severity
      * @return void
-     * This method is for internal use only. It is called by sendException() to configure the error report
      */
     protected function notifyCallback(Report $report, $severity)
     {
@@ -152,10 +162,11 @@ class Bugsnag
     }
 
     /**
-     * @param $bool
-     * @return $this
      * Add the logged-in user to the error report. This user is automatically retrieved. When given no parameter,
      * it will add the user to the error report. When given false, it will remove the user from the error report.
+     *
+     * @param $bool
+     * @return $this
      */
     public function addUserInfo($bool = true)
     {
@@ -176,9 +187,10 @@ class Bugsnag
     }
 
     /**
+     * Add the given version to the error report as the app version.
+     *
      * @param $version
      * @return $this
-     * Add the given version to the error report as the app version.
      */
     public function setAppVersion($version)
     {
@@ -187,9 +199,10 @@ class Bugsnag
     }
 
     /**
+     * Add the given type to the error report as the app type.
+     *
      * @param $type
      * @return $this
-     * Add the given type to the error report as the app type.
      */
     public function setAppType($type)
     {
@@ -198,9 +211,10 @@ class Bugsnag
     }
 
     /**
+     * Add the given stage to the error report as the release stage of the application.
+     *
      * @param $version
      * @return $this
-     * Add the given stage to the error report as the release stage of the application.
      */
     public function setReleaseStage($stage)
     {
@@ -209,9 +223,10 @@ class Bugsnag
     }
 
     /**
+     * Send an error with the given message to Bugsnag
+     *
      * @param $error
      * @return void
-     * Send an error with the given message to Bugsnag
      */
     public function sendError($error)
     {
@@ -219,9 +234,10 @@ class Bugsnag
     }
 
     /**
+     * Set the endpoint to which the error report is sent. This is useful for on premise bugsnag.
+     *
      * @param $endpoint
      * @return $this
-     * Set the endpoint to which the error report is sent. This is useful for on premise bugsnag.
      */
     public function setEndpoint($endpoint)
     {
@@ -230,10 +246,11 @@ class Bugsnag
     }
 
     /**
-     * @param bool $bool
-     * @return $this
      * Add the version of the application, set in composer.json, to the error report. When given no parameter,
      * it will add the version to the error report. When given false, it will remove the version from the error report.
+     *
+     * @param bool $bool
+     * @return $this
      */
     public function addVersion(bool $bool = true)
     {
@@ -247,11 +264,12 @@ class Bugsnag
     }
 
     /**
-     * @param bool $bool
-     * @return $this
      * Add the installed packages, without versions, to the error report. When given no parameter,
      * it will add the packages to the error report. When given false,
      * it will remove the packages from the error report.
+     *
+     * @param bool $bool
+     * @return $this
      */
     public function addPackages(bool $bool = true)
     {
@@ -265,11 +283,12 @@ class Bugsnag
     }
 
     /**
-     * @param bool $bool
-     * @return $this
      * Add the installed packages, with their versions, to the error report. When given no parameter,
      * it will add the packages to the error report. When given false,
      * it will remove the packages from the error report.
+     *
+     * @param bool $bool
+     * @return $this
      */
     public function addPackagesWithVersions(bool $bool = true)
     {
@@ -287,12 +306,13 @@ class Bugsnag
     }
 
     /**
+     * Send a new build release to Bugsnag. This is useful for matching versions with releases.
+     *
      * @param $repository
      * @param $revision
      * @param $provider
      * @param $builderName
      * @return $this
-     * Send a new build release to Bugsnag. This is useful for matching versions with releases.
      */
     public function notifyBuild($repository, $revision, $provider, $builderName)
     {

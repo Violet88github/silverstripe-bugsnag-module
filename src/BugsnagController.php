@@ -14,6 +14,8 @@ class BugsnagController extends Controller
     ];
 
     /**
+     * Simply sends the given release to Bugsnag, to be used in CLI.
+     *
      * @throws NotFoundExceptionInterface
      */
     public function index(): HTTPResponse
