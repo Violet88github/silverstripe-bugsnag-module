@@ -64,7 +64,7 @@ try{
 ```
 
 ## Maintainers
- * Sven van der Zwet
+ * Sven van der Zwet <s.vanderzwet@student.avans.nl>
 
 ## Bugtracker
 Bugs are tracked in the issues section of this repository. Before submitting an issue please read over

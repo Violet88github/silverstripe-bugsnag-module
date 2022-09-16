@@ -12,6 +12,7 @@ When contributing please follow the Issue and Pull Request templates provider to
 - To run the tests, run `vendor/bin/phpunit` from the root of a project that has this module installed
 - To run the tests with code coverage, run `vendor/bin/phpunit --coverage-html=coverage` from the root of a project that has this module installed
 
+When contributing to the module, please write tests for all new functionality and ensure that all existing tests pass.
 ## Contributor license agreement
 By supplying code to this module in patches, tickets and pull requests, you agree to assign copyright
 of that code to Violet88., on the condition that these code changes are released under the
