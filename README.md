@@ -12,7 +12,10 @@
 * [squizlabs/php_codesniffer](https://packagist.org/packages/squizlabs/php_codesniffer)
 
 ## Installation
-
+To install run the following command
+```bash
+composer require violet88/bugsnag-silverstripe
+```
 
 **Note:** Make sure the required modules are installed before using the module.
 
