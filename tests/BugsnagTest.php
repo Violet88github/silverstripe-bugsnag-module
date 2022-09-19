@@ -5,6 +5,7 @@ namespace Violet88\BugsnagModule\Tests;
 use Bugsnag\Client;
 use Composer\InstalledVersions;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Environment;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Security;
@@ -61,10 +62,10 @@ class BugsnagTest extends SapphireTest
     public function testGetStandardSeverity()
     {
         $bugsnag = new Bugsnag();
-        $this->assertEquals(Config::inst()->get(
-            'Violet88\BugsnagModule\Bugsnag',
-            'STANDARD_SEVERITY'
-        ), $bugsnag->getStandardSeverity());
+        $this->assertEquals(
+            Environment::getEnv('BUGSNAG_STANDARD_SEVERITY'),
+            $bugsnag->getStandardSeverity()
+        );
     }
 
     public function testReset()
