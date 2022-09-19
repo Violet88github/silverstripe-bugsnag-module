@@ -3,6 +3,7 @@
 namespace Violet88\BugsnagModule;
 
 use Psr\Container\NotFoundExceptionInterface;
+use RuntimeException;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Injector\Injector;
@@ -10,7 +11,8 @@ use SilverStripe\Core\Injector\Injector;
 class BugsnagController extends Controller
 {
     private static $allowed_actions = [
-        'index'
+        'build',
+        'initial'
     ];
 
     /**
@@ -18,13 +20,13 @@ class BugsnagController extends Controller
      *
      * @throws NotFoundExceptionInterface
      */
-    public function index(): HTTPResponse
+    public function build(): HTTPResponse
     {
         $repository = $_GET['repository'] ?? null;
         $revision = $_GET['revision'] ?? null;
         $provider = $_GET['provider'] ?? null;
         $builderName = $_GET['builderName'] ?? null;
-        $appVersion = $_GET['appVersion'] ?? null;
+        $appVersion = $_GET['revision'] ?? null;
 
         $bugsnag = Injector::inst()->get(Bugsnag::class);
         $bugsnag
@@ -34,5 +36,11 @@ class BugsnagController extends Controller
         $response = new HTTPResponse();
         $response->setStatusCode(200);
         return $response;
+    }
+
+    public function initial()
+    {
+        $bugsnag = Injector::inst()->get(Bugsnag::class);
+        $bugsnag->sendException(new RuntimeException("Test error"));
     }
 }

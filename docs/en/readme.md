@@ -12,10 +12,29 @@ BUGSNAG_API_KEY=<YOUR BUGSNAG API KEY>
 BUGSNAG_STANDARD_SEVERITY=<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>
 BUGSNAG_ACTIVE=<true OR false, depending on whether bugsnag should be ACTIVE>
 ```
-8. Test if the module is working by sending an exception to bugsnag using the following code
+8. Test if the module is working by sending an exception to bugsnag using the following code or CLI command
+### Code
 ```php
 $bugsnag = Injector::inst()->get(Bugsnag::class);
 $bugsnag->sendException(new RuntimeException('Test exception'));
+```
+### CLI
+For this CLI command to work, make sure you configure the routes correctly. This can be done by adding the following to your routes.yml
+```yaml
+SilverStripe\Control\Director:
+  rules:
+    'bugsnag//build': 'Violet88\BugsnagModule\BugsnagController'
+    'bugsnag//initial': 'Violet88\BugsnagModule\BugsnagController'
+```
+Then, run the following command in your terminal
+#### Using sake
+```bash
+./vendor/bin/sake bugsnag/initial
+```
+
+#### Using the silverstripe cli script
+```bash
+php vendor/silverstripe/framework/cli-script.php bugsnag/initial
 ```
 9. If everything is setup correctly, you'll see the exception in your bugsnag dashboard
 
@@ -47,19 +66,20 @@ $bugsnag->notifyBuild('https://github.com/Violet88github/bugsnag-module', '1.0.0
 1. Add the following to your routes yaml
 ```yaml
 SilverStripe\Control\Director:
-  rules:
-    'bugsnag_build': 'Violet88\BugsnagModule\BugsnagController'
+    rules:
+        'bugsnag//build': 'Violet88\BugsnagModule\BugsnagController'
+        'bugsnag//initial': 'Violet88\BugsnagModule\BugsnagController'
 ```
 2. After that run one of the following commands
 #### Using Sake
 run the following command in your project root, replacing these arguments with your own.
 ```bash
-vendor/bin/sake bugsnag_build "repository=https://github.com/Violet88github/bugsnag-module&revision=1.0.0&provider=github&builderName=Sven&appVersion=1.0.0"
+vendor/bin/sake bugsnag/build "repository=https://github.com/Violet88github/bugsnag-module&revision=1.0.0&provider=github&builderName=Sven"
 ```
 #### Using the Silverstripe cli script
 run the following command in your project root, replacing these arguments with your own.
 ```bash
-php vendor/silverstripe/framework/cli-script.php bugsnag_build repository=https://github.com/Violet88github/bugsnag-module revision=1.0.0 provider=github builderName=sven appVersion=1.0.0
+php vendor/silverstripe/framework/cli-script.php bugsnag/build repository=https://github.com/Violet88github/bugsnag-module revision=1.0.0 provider=github builderName=sven
 ```
 
 ## Catching unhandled exceptions
