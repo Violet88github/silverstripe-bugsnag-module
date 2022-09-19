@@ -2,9 +2,6 @@
 
 namespace Violet88\BugsnagModule\Tests;
 
-use Bugsnag\Client;
-use SilverStripe\Core\Config\Config;
-use SilverStripe\Core\Environment;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\FunctionalTest;
 use Violet88\BugsnagModule\Bugsnag;
