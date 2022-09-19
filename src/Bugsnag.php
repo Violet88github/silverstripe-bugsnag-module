@@ -8,34 +8,19 @@ use Composer\InstalledVersions;
 use Exception;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Environment;
 use SilverStripe\Security\Security;
 
 class Bugsnag
 {
-    use Configurable;
 
     public Client $bugsnag;
 
     protected $EXTRA_OPTIONS = array();
 
-    /**
-     * @config
-     */
-    private static $API_KEY;
-
-    /**
-     * @config
-     */
-    private static $STANDARD_SEVERITY;
-
-    /**
-     * @config
-     */
-    private static $ACTIVE;
-
     public function __construct()
     {
-        $this->bugsnag = Client::make(Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'API_KEY'));
+        $this->bugsnag = Client::make(Environment::getEnv('BUGSNAG_API_KEY'));
         $this->bugsnag->setAppType('Silverstripe');
     }
 
@@ -56,7 +41,7 @@ class Bugsnag
      */
     public function getStandardSeverity()
     {
-        return Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'STANDARD_SEVERITY');
+        return Environment::getEnv('BUGSNAG_STANDARD_SEVERITY');
     }
 
     /**
@@ -120,7 +105,8 @@ class Bugsnag
         bool $resetExtraOptions = true,
         bool $handled = true
     ) {
-        if (Config::inst()->get('Violet88\BugsnagModule\Bugsnag', 'ACTIVE')) {
+        $active = Environment::getEnv('BUGSNAG_ACTIVE');
+        if ($active) {
             if (empty($severity)) {
                 $severity = $this->getStandardSeverity();
             }
@@ -177,7 +163,7 @@ class Bugsnag
                     'FirstName' => $member->FirstName,
                     'Surname' => $member->Surname,
                     'ID' => $member->ID,
-                    'Groups' => $member->Groups()?->column('Title'),
+                    'Groups' => $member->Groups() ? $member->Groups()->column('Title') : [],
                 ));
             }
         } else {

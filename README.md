@@ -23,12 +23,11 @@ See [License](license.md)
  * [Documentation readme](docs/en/readme.md)
 
 ## Configuration
-For base use add the following to your configuration yaml
-```yaml
-Violet88\BugsnagModule\Bugsnag:
-  API_KEY: "<YOUR BUGSNAG API KEY>"
-  STANDARD_SEVERITY: "<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>"
-  ACTIVE: <true OR false, depending on whether bugsnag should be ACTIVE>
+For base use, add the following to your .env file
+```bash
+BUGSNAG_API_KEY=<YOUR BUGSNAG API KEY>
+BUGSNAG_STANDARD_SEVERITY=<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>
+BUGSNAG_ACTIVE=<true OR false, depending on whether bugsnag should be ACTIVE>
 ```
 For using the BugsnagLogger as the standard error logger, add the following to your configuration yaml
 ```yaml

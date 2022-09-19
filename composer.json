@@ -10,6 +10,7 @@
     ],
     "license": "BSD-3-Clause",
     "require": {
+        "php": "^7.4 || ^8.0",
         "silverstripe/framework": "^4.0",
         "silverstripe/admin": "^1.0",
         "bugsnag/bugsnag": "^3.0",

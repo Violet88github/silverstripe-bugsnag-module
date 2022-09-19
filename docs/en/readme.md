@@ -6,19 +6,18 @@
 4. using?' Choose 'PHP'
 5. For the question 'What framework are you using?' Choose 'Other'
 6. Name the project and press 'continue'
-7. Make sure you add the following to your site config
-```yaml
-Violet88\BugsnagModule\Bugsnag:
-  API_KEY: "<YOUR BUGSNAG API KEY>"
-  STANDARD_SEVERITY: "<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>"
-  ACTIVE: <true OR false, depending on whether bugsnag should be ACTIVE>
+7. Make sure you add the following to your env file
+```bash
+BUGSNAG_API_KEY=<YOUR BUGSNAG API KEY>
+BUGSNAG_STANDARD_SEVERITY=<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>
+BUGSNAG_ACTIVE=<true OR false, depending on whether bugsnag should be ACTIVE>
 ```
-7. Test if the module is working by sending an exception to bugsnag using the following code
+8. Test if the module is working by sending an exception to bugsnag using the following code
 ```php
 $bugsnag = Injector::inst()->get(Bugsnag::class);
 $bugsnag->sendException(new RuntimeException('Test exception'));
 ```
-8. If everything is setup correctly, you'll see the exception in your bugsnag dashboard
+9. If everything is setup correctly, you'll see the exception in your bugsnag dashboard
 
 
 ## Catching an error and sending it to Bugsnag
