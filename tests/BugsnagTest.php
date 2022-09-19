@@ -2,11 +2,8 @@
 
 namespace Violet88\BugsnagModule\Tests;
 
-use Bugsnag\Client;
 use Composer\InstalledVersions;
-use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Environment;
-use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Security;
 use Violet88\BugsnagModule\Bugsnag;

@@ -6,8 +6,6 @@ use Bugsnag\Client;
 use Bugsnag\Report;
 use Composer\InstalledVersions;
 use Exception;
-use SilverStripe\Core\Config\Config;
-use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Environment;
 use SilverStripe\Security\Security;
 

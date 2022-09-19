@@ -3,7 +3,6 @@
 namespace Violet88\BugsnagModule\Tests;
 
 use SilverStripe\Dev\SapphireTest;
-use Violet88\BugsnagModule\Bugsnag;
 use Violet88\BugsnagModule\BugsnagLogger;
 
 /**
