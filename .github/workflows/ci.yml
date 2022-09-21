@@ -1,0 +1,49 @@
+name: Converted Workflow
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: '${{ matrix.os }}'
+    strategy:
+      matrix:
+        os:
+          - ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: phpenv rehash
+      - run: phpenv config-rm xdebug.ini
+      - run: composer validate
+      - run: 'composer require --no-update silverstripe/recipe-cms:"$RECIPE_VERSION"'
+      - run: >-
+          if [[ $DB == PGSQL ]]; then composer require --no-update
+          silverstripe/postgresql:2.1.x-dev; fi
+      - run: >-
+          composer install --prefer-source --no-interaction --no-progress
+          --no-suggest --optimize-autoloader --verbose --profile
+      - run: >-
+          if [[ $NPM_TEST ]]; then nvm install $TRAVIS_NODE_VERSION && nvm use
+          $TRAVIS_NODE_VERSION && npm install -g yarn && yarn install
+          --network-concurrency 1 && (cd vendor/silverstripe/admin && yarn
+          install --network-concurrency 1) && yarn run build; fi
+      - run: 'if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit; fi'
+      - run: >-
+          if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit
+          --coverage-clover=coverage.xml; fi
+      - run: 'if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs src/ tests/ *.php; fi'
+      - run: >-
+          if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client;
+          fi
+      - run: 'if [[ $NPM_TEST ]]; then git diff --name-status --relative=client; fi'
+      - run: 'if [[ $NPM_TEST ]]; then yarn coverage; fi'
+      - run: 'if [[ $NPM_TEST ]]; then yarn lint; fi'
+      - run: >-
+          if [[ $PHPUNIT_COVERAGE_TEST ]]; then bash <(curl -s
+          https://codecov.io/bash) -f coverage.xml -F php; fi
+      - run: >-
+          if [[ $NPM_TEST ]]; then bash <(curl -s https://codecov.io/bash) -F
+          js; fi
