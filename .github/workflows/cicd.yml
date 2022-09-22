@@ -55,8 +55,8 @@ jobs:
 
       - name: "Install dependencies with composer"
         run: |
-        composer require silverstripe/installer
-        composer install --no-ansi --no-interaction --no-progress
+          composer require silverstripe/installer
+          composer install --no-ansi --no-interaction --no-progress
 
       - name: "Install Silverstripe"
         env:
