@@ -1,5 +1,5 @@
 # Bugsnag module for Silverstripe
-[![CI](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/ci.yml)
+[![CI](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/cicd.yml/badge.svg)](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/cicd.yml)
 ## Requirements
 
 * SilverStripe ^4.0
