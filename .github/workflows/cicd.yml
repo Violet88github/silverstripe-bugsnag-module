@@ -59,6 +59,7 @@ jobs:
       - name: "Run tests with phpunit/phpunit"
         env:
           SS_DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
+          SS_DATABASE_NAME: test_db
           BUGSNAG_API_KEY: abc123
         run: "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
@@ -80,4 +81,4 @@ jobs:
         method: 'POST'
         customHeaders: '{"Content-Type": "application/json"}'
         data: '{"repository":{"url":"https://packagist.org/packages/violet88/bugsnag-silverstripe"}}'
-  
+
