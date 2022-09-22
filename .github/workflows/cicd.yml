@@ -56,9 +56,6 @@ jobs:
       - name: "Create silverstripe project"
         run: "composer create-project silverstripe/installer test-db --no-autoloader"
 
-      - name: "Install dependencies with composer"
-        run: "composer install --no-ansi --no-interaction --no-progress"
-
       - name: "Install Silverstripe"
         env:
           SS_DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
