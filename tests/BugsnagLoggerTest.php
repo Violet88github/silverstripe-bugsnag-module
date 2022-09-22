@@ -2,6 +2,7 @@
 
 namespace Violet88\BugsnagModule\Tests;
 
+use SilverStripe\Core\Environment;
 use SilverStripe\Dev\SapphireTest;
 use Violet88\BugsnagModule\BugsnagLogger;
 
@@ -11,6 +12,12 @@ use Violet88\BugsnagModule\BugsnagLogger;
  */
 class BugsnagLoggerTest extends SapphireTest
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Environment::setEnv('BUGSNAG_API_KEY', '1234567890');
+    }
+
     protected static function getMethod($name)
     {
         $class = new \ReflectionClass('Violet88\BugsnagModule\BugsnagLogger');

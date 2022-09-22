@@ -3,6 +3,7 @@
 namespace Violet88\BugsnagModule\Tests;
 
 use Composer\InstalledVersions;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Environment;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Security;
@@ -13,6 +14,12 @@ use Violet88\BugsnagModule\Bugsnag;
  */
 class BugsnagTest extends SapphireTest
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Environment::setEnv('BUGSNAG_API_KEY', '1234567890');
+        Environment::setEnv('BUGSNAG_ACTIVE', true);
+    }
     public function testGetExtraOption()
     {
         $stub = $this->getMockBuilder(Bugsnag::class)
@@ -31,6 +38,7 @@ class BugsnagTest extends SapphireTest
 
     public function testAddExtraOption()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->addExtraOption('key', 'value');
         $this->assertEquals(['key' => 'value'], $bugsnag->getExtraOptions());
@@ -38,12 +46,14 @@ class BugsnagTest extends SapphireTest
 
     public function testAddExtraOptionReturnsSelfRef()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $this->assertEquals($bugsnag, $bugsnag->addExtraOption('key', 'value'));
     }
 
     public function testRemoveExtraOption()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->addExtraOption('key', 'value');
         $bugsnag->removeExtraOption('key');
@@ -52,12 +62,14 @@ class BugsnagTest extends SapphireTest
 
     public function testRemoveExtraOptionReturnsSelfRef()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $this->assertEquals($bugsnag, $bugsnag->removeExtraOption('key'));
     }
 
     public function testGetStandardSeverity()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $this->assertEquals(
             Environment::getEnv('BUGSNAG_STANDARD_SEVERITY'),
@@ -76,6 +88,7 @@ class BugsnagTest extends SapphireTest
 
     public function testAddUserInfo()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
 
         $memberMock = $this->getMockBuilder('SilverStripe\Security\Member')
@@ -129,6 +142,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['notifyException'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_ACTIVE', true);
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
         $bugsnag->addExtraOption('key', 'value');
@@ -152,6 +166,7 @@ class BugsnagTest extends SapphireTest
 
     public function testNotifyCallback()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $notify = self::getMethod('notifyCallback');
         $obj = new Bugsnag();
         $report = $this->getMockBuilder('Bugsnag\Report')
@@ -229,6 +244,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['setAppType'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -240,6 +256,7 @@ class BugsnagTest extends SapphireTest
 
     public function testSetAppTypeReturnsSelfRef()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $result = $bugsnag->setAppType('test');
         $this->assertEquals($result, $bugsnag);
@@ -256,6 +273,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['setAppVersion'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -267,6 +285,7 @@ class BugsnagTest extends SapphireTest
 
     public function testSetAppVersionReturnsSelfRef()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $result = $bugsnag->setAppVersion('1.0.0');
         $this->assertEquals($result, $bugsnag);
@@ -283,6 +302,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['setReleaseStage'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -294,6 +314,7 @@ class BugsnagTest extends SapphireTest
 
     public function testSetReleaseStageReturnsSelfRef()
     {
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $result = $bugsnag->setReleaseStage('0.1');
         $this->assertEquals($result, $bugsnag);
@@ -310,6 +331,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['notifyError'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -332,6 +354,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['setNotifyEndpoint'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -359,6 +382,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['build'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -380,6 +404,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['setAppVersion'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -405,6 +430,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['setAppVersion'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
@@ -430,6 +456,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['setAppVersion'])
             ->getMock();
 
+        Environment::setEnv('BUGSNAG_API_KEY', 'test');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
 
