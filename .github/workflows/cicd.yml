@@ -46,7 +46,7 @@ jobs:
       - name: "Start mysql service"
         run: |
           sudo /etc/init.d/mysql start
-          sleep 10s
+          sleep(10)
           mysql -h 127.0.0.1 -u root -p '' -e 'CREATE DATABASE test_db;'
 
       - name: "Create sql database table"
