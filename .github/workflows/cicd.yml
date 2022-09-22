@@ -47,7 +47,7 @@ jobs:
         run: "sudo /etc/init.d/mysql start"
 
       - name: "Wait 10 seconds"
-        run: "sleep(10)"
+        run: "sleep 10"
 
       - name: "Create sql database"
         run: "mysql -h 127.0.0.1 -u root -p '' -e 'CREATE DATABASE test_db;'"
