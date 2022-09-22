@@ -44,7 +44,9 @@ jobs:
           coverage: "xdebug"
 
       - name: "Start mysql service"
-        run: "sudo /etc/init.d/mysql start"
+        run: |
+          "sudo /etc/init.d/mysql start"
+          "mysql -u root -e 'CREATE TABLE LoginSession"
 
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1"
@@ -55,9 +57,6 @@ jobs:
 
       - name: "Install dependencies with composer"
         run: "composer install --no-ansi --no-interaction --no-progress"
-
-      - name: "Install Silverstripe"
-        run: "php vendor/silverstripe/framework/cli-script.php dev/build"
 
       - name: "Run tests with phpunit/phpunit"
         env:
