@@ -11,6 +11,6 @@
         </whitelist>
     </filter>
     <php>
-        <env name="DATABASE_URL" value="mysql://root:@localhost/silverstripe_test" />
+        <env name="DATABASE_URL" value="mysql://root:@mysql/silverstripe_test" />
     </php>
 </phpunit>
