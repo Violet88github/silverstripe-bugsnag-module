@@ -44,13 +44,13 @@ jobs:
           coverage: "xdebug"
 
       - name: "Start mysql service"
-        run: |
-          sudo /etc/init.d/mysql start
-          sleep(10)
-          mysql -h 127.0.0.1 -u root -p '' -e 'CREATE DATABASE test_db;'
+        run: "sudo /etc/init.d/mysql start"
 
-      - name: "Create sql database table"
-        run: "mysql -e 'CREATE TABLE test_db.LoginSession'"
+      - name: "Wait 10 seconds"
+        run: "sleep(10)"
+
+      - name: "Create sql database"
+        run: "mysql -h 127.0.0.1 -u root -p '' -e 'CREATE DATABASE test_db;'"
 
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1"
