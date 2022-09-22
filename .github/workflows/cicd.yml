@@ -54,10 +54,10 @@ jobs:
           restore-keys: "php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
       - name: "Create silverstripe project"
-        run: "composer create-project silverstripe/installer test-db"
+        run: "composer create-project silverstripe/installer test-db --no-autoloader"
 
       - name: "Install dependencies with composer"
-        run: "composer update --no-ansi --no-interaction --no-progress"
+        run: "composer install --no-ansi --no-interaction --no-progress"
 
       - name: "Install Silverstripe"
         env:
