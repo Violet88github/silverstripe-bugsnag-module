@@ -59,6 +59,7 @@ jobs:
       - name: "Run tests with phpunit/phpunit"
         env:
           SS_DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
+          BUGSNAG_API_KEY: abc123
         run: "vendor/bin/phpunit --coverage-clover=coverage.xml"
 
       - name: "Upload coverage results to CodeCov"
