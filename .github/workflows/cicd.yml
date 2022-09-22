@@ -47,7 +47,7 @@ jobs:
         run: "sudo /etc/init.d/mysql start"
 
       - name: "Create sql database table"
-        run: "mysql -e 'CREATE TABLE test_db.LoginSession"
+        run: "mysql -e 'CREATE TABLE test_db.LoginSession'"
 
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1"
