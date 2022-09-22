@@ -20,7 +20,7 @@ jobs:
         image: "mysql:5.7"
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_ROOT_PASSWORD:
           MYSQL_DATABASE: test_db
         ports:
           - 3306/tcp
@@ -46,12 +46,6 @@ jobs:
       - name: "Start mysql service"
         run: "sudo /etc/init.d/mysql start"
 
-      - name: "Wait 10 seconds"
-        run: "sleep 10"
-
-      - name: "Create sql database"
-        run: "mysql -h 127.0.0.1 -u root -p '' -e 'CREATE DATABASE test_db;'"
-
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1"
         with:
@@ -61,6 +55,12 @@ jobs:
 
       - name: "Install dependencies with composer"
         run: "composer install --no-ansi --no-interaction --no-progress"
+
+      - name: "Install Silverstripe"
+        env:
+          SS_DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
+          SS_DATABASE_NAME: test_db
+        run: "php vendor/silverstripe/framework/cli-script.php dev/build"
 
       - name: "Run tests with phpunit/phpunit"
         env:
