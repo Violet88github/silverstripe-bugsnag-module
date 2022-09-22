@@ -44,7 +44,9 @@ jobs:
           coverage: "xdebug"
 
       - name: "Start mysql service"
-        run: "sudo /etc/init.d/mysql start"
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE test_db;' -u root
 
       - name: "Create sql database table"
         run: "mysql -e 'CREATE TABLE test_db.LoginSession'"
