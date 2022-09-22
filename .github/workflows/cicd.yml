@@ -57,7 +57,7 @@ jobs:
         run: "composer install --no-ansi --no-interaction --no-progress"
 
       - name: "Install Silverstripe"
-        run: "php vendor/silverstripe/framework/cli-script.php dev/build flush=1"
+        run: "php vendor/silverstripe/framework/cli-script.php dev/build"
 
       - name: "Run tests with phpunit/phpunit"
         env:
