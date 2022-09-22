@@ -61,8 +61,8 @@ jobs:
           SS_DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
           SS_DATABASE_NAME: test_db
         run: |
-        composer create-project silverstripe/installer test-db
-        php vendor/silverstripe/framework/cli-script.php dev/build
+          composer create-project silverstripe/installer test-db
+          php vendor/silverstripe/framework/cli-script.php dev/build
 
       - name: "Run tests with phpunit/phpunit"
         env:
