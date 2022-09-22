@@ -27,9 +27,12 @@ See [License](license.md)
 
 ## Configuration
 For base use, add the following to your .env file
+
+<strong>When running local, to prevent Bugsnag from being filled with errors, set BUGSNAG_ACTIVE to false OR do not declare it. (If not declared messages will also not be sent to Bugsnag.</strong>
+
 ```bash
 BUGSNAG_API_KEY=<YOUR BUGSNAG API KEY>
-BUGSNAG_STANDARD_SEVERITY=<STANDARD SEVERITY LEVEL FOR BUGSNAG (info, warning, error>
+BUGSNAG_STANDARD_SEVERITY=<STANDARD SEVERITY LEVEL FOR BUGSNAG (info OR warning OR error)>
 BUGSNAG_ACTIVE=<true OR false, depending on whether bugsnag should be ACTIVE>
 ```
 For using the BugsnagLogger as the standard error logger, add the following to your configuration yaml
