@@ -13,7 +13,10 @@ use Violet88\BugsnagModule\TestSnag;
  */
 class BugsnagControllerTest extends FunctionalTest
 {
-   /* public function testCommand()
+
+    protected static $fixture_file = 'fixtures.yml';
+
+    public function testCommand()
     {
         Injector::nest();
 
@@ -49,5 +52,5 @@ class BugsnagControllerTest extends FunctionalTest
         $this->assertEquals(200, $response->getStatusCode());
 
         Injector::unnest();
-    }*/
+    }
 }
