@@ -67,6 +67,3 @@ jobs:
         with:
           files: ./coverage.xml # optional
           flags: unittests # optional
-
-      - name: "Run tests with squizlabs/php_codesniffer"
-        run: "vendor/bin/phpcs -s --report=summary --standard=phpcs.xml.dist --extensions=php,inc --ignore=autoload.php --ignore=vendor/ src/ tests/"
