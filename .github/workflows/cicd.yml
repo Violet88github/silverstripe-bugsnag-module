@@ -56,6 +56,12 @@ jobs:
       - name: "Install dependencies with composer"
         run: "composer install --no-ansi --no-interaction --no-progress"
 
+      - name: "Install Silverstripe"
+        env:
+          SS_DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
+          SS_DATABASE_NAME: test_db
+        run: "vendor/bin/sake dev/build flush=1"
+
       - name: "Run tests with phpunit/phpunit"
         env:
           SS_DATABASE_PORT: ${{ job.services.mysql.ports['3306'] }}
