@@ -67,3 +67,17 @@ jobs:
         with:
           files: ./coverage.xml # optional
           flags: unittests # optional
+  deployment:
+    runs-on: ubuntu-latest
+    needs: [tests]
+    if: |
+      always() && (needs.tests.result == 'success')
+    steps:
+    - name: Deploy Stage
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://packagist.org/api/update-package?username=JanSneeuw&apiToken=${{ secrets.PACKAGIST_SECRET }}'
+        method: 'POST'
+        customHeaders: '{"Content-Type": "application/json"}'
+        data: '{"repository":{"url":"https://packagist.org/packages/violet88/bugsnag-silverstripe"}}'
+  
