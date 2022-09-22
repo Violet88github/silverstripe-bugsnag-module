@@ -14,7 +14,8 @@
         "silverstripe/framework": "^4.0",
         "silverstripe/admin": "^1.0",
         "bugsnag/bugsnag": "^3.0",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "silverstripe/recipe-cms": "^4.11"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
@@ -32,6 +33,19 @@
         },
         "expose": [
             "client/dist"
+        ],
+        "project-files-installed": [
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mimevalidator.yml",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "web.config"
         ]
     },
     "minimum-stability": "dev",
@@ -39,7 +53,8 @@
     "config": {
         "allow-plugins": {
             "composer/installers": true,
-            "silverstripe/vendor-plugin": true
+            "silverstripe/vendor-plugin": true,
+            "silverstripe/recipe-plugin": true
         }
     }
 }
