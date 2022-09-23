@@ -4,16 +4,20 @@ namespace Violet88\BugsnagModule\Tests;
 
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Dev\SapphireTest;
 use Violet88\BugsnagModule\Bugsnag;
+use Violet88\BugsnagModule\BugsnagController;
 use Violet88\BugsnagModule\TestSnag;
 
 /**
  * @covers \Violet88\BugsnagModule\BugsnagController
  * @covers \Violet88\BugsnagModule\Bugsnag
  */
-class BugsnagControllerTest extends FunctionalTest
+class BugsnagControllerTest extends SapphireTest
 {
-   /* public function testCommand()
+    protected static $fixture_file = 'fixtures.yml';
+
+    public function testCommand()
     {
         Injector::nest();
 
@@ -29,8 +33,7 @@ class BugsnagControllerTest extends FunctionalTest
             ->willReturnSelf();
 
         Injector::inst()->registerService($testSnag, Bugsnag::class);
-        $response = $this->get('bugsnag/build');
-        $this->assertEquals(200, $response->getStatusCode());
+        BugsnagController::create()->build();
 
         Injector::unnest();
     }
@@ -45,9 +48,12 @@ class BugsnagControllerTest extends FunctionalTest
             ->getMock();
 
         Injector::inst()->registerService($testSnag, Bugsnag::class);
-        $response = $this->get('bugsnag/initial');
-        $this->assertEquals(200, $response->getStatusCode());
 
+        $testSnag->expects($this->once())
+            ->method('sendException')
+            ->willReturnSelf();
+
+        BugsnagController::create()->initial();
         Injector::unnest();
-    }*/
+    }
 }
