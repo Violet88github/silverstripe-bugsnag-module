@@ -1,5 +1,6 @@
 # Bugsnag module for Silverstripe
 [![CI](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/cicd.yml/badge.svg)](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/cicd.yml)
+[![codecov.io](https://codecov.io/github/Violet88github/silverstripe-bugsnag-module/coverage.svg?branch=master)](https://codecov.io/github/Violet88github/silverstripe-bugsnag-module?branch=master)
 ## Requirements
 
 * SilverStripe ^4.0
