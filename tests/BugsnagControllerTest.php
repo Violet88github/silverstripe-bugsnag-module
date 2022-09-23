@@ -32,7 +32,7 @@ class BugsnagControllerTest extends FunctionalTest
             ->willReturnSelf();
 
         Injector::inst()->registerService($testSnag, Bugsnag::class);
-        $response = $this->get('bugsnag/build');
+        $response = $this->get('Violet88/BugsnagModule/BugsnagController/build');
         $this->assertEquals(200, $response->getStatusCode());
 
         Injector::unnest();
