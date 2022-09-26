@@ -72,5 +72,6 @@ class BugsnagLogger extends AbstractProcessingHandler
             case 600:
                 return Severity::ERROR;
         }
+        return Severity::INFO;
     }
 }
