@@ -88,3 +88,5 @@ Please report security issues to the module maintainers directly. Please don't f
 
 ## Development and contribution
 If you would like to make contributions to the module please ensure you raise a pull request and discuss with the module maintainers.
+
+Feel free to join the community on slack: [Join Slack](https://join.slack.com/t/silverstripe-bugsnag/shared_invite/zt-1gprtht4j-RIY_QyhTTxJZliDRlBAS~Q)
