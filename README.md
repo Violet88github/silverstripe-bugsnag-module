@@ -1,6 +1,9 @@
 # Bugsnag module for Silverstripe
 [![CI](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/cicd.yml/badge.svg)](https://github.com/Violet88github/silverstripe-bugsnag-module/actions/workflows/cicd.yml)
 [![codecov.io](https://codecov.io/github/Violet88github/silverstripe-bugsnag-module/coverage.svg?branch=master)](https://codecov.io/github/Violet88github/silverstripe-bugsnag-module?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Violet88github/silverstripe-bugsnag-module/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Violet88github/silverstripe-bugsnag-module/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/Violet88github/silverstripe-bugsnag-module/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Violet88github/silverstripe-bugsnag-module/build-status/master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/Violet88github/silverstripe-bugsnag-module/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 ## Requirements
 
 * SilverStripe ^4.0
