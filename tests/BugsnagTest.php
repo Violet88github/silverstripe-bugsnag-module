@@ -142,7 +142,7 @@ class BugsnagTest extends SapphireTest
             ->setMethods(['notifyException'])
             ->getMock();
 
-        Environment::setEnv('BUGSNAG_ACTIVE', true);
+        Environment::setEnv('BUGSNAG_ACTIVE', 'true');
         $bugsnag = new Bugsnag();
         $bugsnag->bugsnag = $clientMock;
         $bugsnag->addExtraOption('key', 'value');
