@@ -111,7 +111,7 @@ class Bugsnag
             if ($handled) {
                 $this->getBugsnag()->notifyException(
                     $exception,
-                    function (Report $report) use ($severity, $handled) {
+                    function (Report $report) use ($severity) {
                         $this->notifyCallback($report, $severity);
                     }
                 );

@@ -18,7 +18,7 @@ class BugsnagTest extends SapphireTest
     {
         parent::setUp();
         Environment::setEnv('BUGSNAG_API_KEY', '1234567890');
-        Environment::setEnv('BUGSNAG_ACTIVE', true);
+        Environment::setEnv('BUGSNAG_ACTIVE', 'true');
     }
     public function testGetExtraOption()
     {
