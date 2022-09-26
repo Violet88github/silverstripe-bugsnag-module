@@ -7,7 +7,6 @@ use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Dev\SapphireTest;
 use Violet88\BugsnagModule\Bugsnag;
 use Violet88\BugsnagModule\BugsnagController;
-use Violet88\BugsnagModule\TestSnag;
 
 /**
  * @covers \Violet88\BugsnagModule\BugsnagController
