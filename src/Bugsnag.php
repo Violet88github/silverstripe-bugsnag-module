@@ -214,7 +214,10 @@ class Bugsnag
      */
     public function sendError($error)
     {
-        $this->bugsnag->notifyError('Error', $error);
+        $active = Environment::getEnv('BUGSNAG_ACTIVE');
+        if ($active) {
+            $this->bugsnag->notifyError('Error', $error);
+        }
     }
 
     /**
