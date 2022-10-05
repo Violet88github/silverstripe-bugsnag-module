@@ -104,7 +104,7 @@ class Bugsnag
         bool $handled = true
     ) {
         $active = Environment::getEnv('BUGSNAG_ACTIVE');
-        if ($active) {
+        if ($active === "true") {
             if (empty($severity)) {
                 $severity = $this->getStandardSeverity();
             }
@@ -215,7 +215,7 @@ class Bugsnag
     public function sendError($error)
     {
         $active = Environment::getEnv('BUGSNAG_ACTIVE');
-        if ($active) {
+        if ($active === "true") {
             $this->bugsnag->notifyError('Error', $error);
         }
     }
