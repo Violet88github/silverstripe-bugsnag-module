@@ -18,8 +18,10 @@ class Bugsnag
 
     public function __construct()
     {
-        $this->bugsnag = Client::make(Environment::getEnv('BUGSNAG_API_KEY'));
-        $this->bugsnag->setAppType('Silverstripe');
+        if (Environment::getEnv('BUGSNAG_ACTIVE') === "true") {
+            $this->bugsnag = Client::make(Environment::getEnv('BUGSNAG_API_KEY'));
+            $this->bugsnag->setAppType('Silverstripe');
+        }
     }
 
     /**
