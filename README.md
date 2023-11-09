@@ -39,6 +39,7 @@ For base use, add the following to your .env file
 BUGSNAG_API_KEY=<YOUR BUGSNAG API KEY>
 BUGSNAG_STANDARD_SEVERITY=<STANDARD SEVERITY LEVEL FOR BUGSNAG (info OR warning OR error)>
 BUGSNAG_ACTIVE=<true OR false, depending on whether bugsnag should be ACTIVE>
+BUGSNAG_RELEASE_STAGE=<RELEASE STAGE FOR YOUR CURRENT REVISION>
 ```
 For using the BugsnagLogger as the standard error logger, add the following to your configuration yaml
 ```yaml
