@@ -1,0 +1,4 @@
+Silverstripe\Dev\DevelopmentAdmin:
+  registered_controllers:
+    build:
+      controller: 'Violet88\BugsnagModule\DevBuildExtension'

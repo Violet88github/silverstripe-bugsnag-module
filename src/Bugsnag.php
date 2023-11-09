@@ -21,6 +21,10 @@ class Bugsnag
         if (Environment::getEnv('BUGSNAG_ACTIVE') === "true") {
             $this->bugsnag = Client::make(Environment::getEnv('BUGSNAG_API_KEY'));
             $this->bugsnag->setAppType('Silverstripe');
+
+            if (Environment::getEnv('BUGSNAG_RELEASE_STAGE')) {
+                $this->bugsnag->setReleaseStage(Environment::getEnv('BUGSNAG_RELEASE_STAGE'));
+            }
         }
     }
 
