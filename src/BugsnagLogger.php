@@ -4,6 +4,7 @@ namespace Violet88\BugsnagModule;
 
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
+use Monolog\LogRecord;
 
 class BugsnagLogger extends AbstractProcessingHandler
 {
@@ -19,10 +20,10 @@ class BugsnagLogger extends AbstractProcessingHandler
     /**
      * Function that gets called when a log is getting written. This function will send the log to Bugsnag.
      *
-     * @param array $record
+     * @param $record
      * @return void
      */
-    protected function write(array $record)
+    protected function write($record): void
     {
         if (isset($record['context'])) {
             if (!isset($record['context']['exception'])) {
