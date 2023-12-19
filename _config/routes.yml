@@ -4,7 +4,7 @@ After:
   - "#rootroutes"
   - "#coreroutes"
 Before:
-  - "routes"
+  - "approutes"
 ---
 SilverStripe\Control\Director:
   rules:
