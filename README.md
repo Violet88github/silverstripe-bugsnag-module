@@ -51,6 +51,9 @@ SilverStripe\Core\Injector\Injector:
     class: Violet88\BugsnagModule\BugsnagLogger
     constructor:
       - '%$Violet88\BugsnagModule\Bugsnag'
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - Violet88\BugsnagModule\BugsnagSiteConfigExtension
 ```
 For using the CLI command to sent your current release revision to Bugsnag, add the following to your routes yaml
 ```yaml
