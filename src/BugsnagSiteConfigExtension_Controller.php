@@ -12,6 +12,7 @@ use SilverStripe\SiteConfig\SiteConfig;
 
 class BugsnagSiteConfigExtension_Controller extends LeftAndMain {
   private static $url_segment = 'admin/settings/bugsnag';
+  private static $menu_title = 'Bugsnag';
 
   private static $allowed_actions = [
     'doForceError',
