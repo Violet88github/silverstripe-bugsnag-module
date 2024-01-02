@@ -22,7 +22,7 @@ class BugsnagLogger extends AbstractProcessingHandler
      * @param array $record
      * @return void
      */
-    protected function write(array $record)
+    protected function write($record): void
     {
         if (isset($record['context'])) {
             if (!isset($record['context']['exception'])) {
