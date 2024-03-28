@@ -1,11 +1,11 @@
 ---
 Name: mymoduleroutes
-After:
-  - "#rootroutes"
-  - "#coreroutes"
 Before:
-  - "approutes"
+  - 'mysite'
+  - 'app'
+After:
+  - 'framework'
 ---
 SilverStripe\Control\Director:
   rules:
-    "admin/settings/bugsnag//$Action": 'Violet88\BugsnagModule\BugsnagSiteConfigExtension_Controller'
+    'admin/settings/bugsnag//$Action': 'Violet88\BugsnagModule\BugsnagSiteConfigExtension_Controller'
