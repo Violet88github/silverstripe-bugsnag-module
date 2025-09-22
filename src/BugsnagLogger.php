@@ -29,8 +29,8 @@ class BugsnagLogger extends AbstractProcessingHandler
                 $this->getBugsnag()->sendError($record['message']);
                 return;
             }
-            //check if $record['context']['exception'] is an instance of \Exception
-            if ($record['context']['exception'] instanceof \Exception) {
+            //check if $record['context']['exception'] is an instance of \Throwable
+            if ($record['context']['exception'] instanceof \Throwable) {
                 $this->getBugsnag()
                     ->addUserInfo()
                     ->addPackagesWithVersions()

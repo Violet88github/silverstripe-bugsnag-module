@@ -8,6 +8,7 @@ use Composer\InstalledVersions;
 use Exception;
 use SilverStripe\Core\Environment;
 use SilverStripe\Security\Security;
+use Throwable;
 
 class Bugsnag
 {
@@ -102,7 +103,7 @@ class Bugsnag
      * @return void
      */
     public function sendException(
-        Exception $exception,
+        Throwable $exception,
         string $severity = null,
         bool $resetExtraOptions = true,
         bool $handled = true
