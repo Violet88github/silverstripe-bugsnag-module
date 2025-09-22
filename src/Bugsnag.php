@@ -96,7 +96,7 @@ class Bugsnag
      * This method send the exception to Bugsnag. Perform any configuration to your error report BEFORE you call this
      * method.
      *
-     * @param Exception $exception
+     * @param Throwable $exception
      * @param string|null $severity
      * @param bool $resetExtraOptions
      * @param bool $handled
